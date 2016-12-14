@@ -15,7 +15,7 @@
     ],
     "require": {
         "fei/api-client": "^1.1.0",
-        "fei/audit-common": "dev-master"
+        "fei/audit-common": "^1.0.1"
     },
     "require-dev": {
         "fzaninotto/faker": "^1.6",
@@ -25,10 +25,6 @@
         {
             "type": "composer",
             "url": "https://composer.flash-global.net"
-        },
-        {
-            "type": "git",
-            "url": "git@github.com:flash-global/audit-common.git"
         }
     ]
 }
