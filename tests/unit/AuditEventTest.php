@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Fei\Service\Logger\Client;
+namespace Tests\Fei\Service\Audit\Client;
 
 use Codeception\Test\Unit;
 use Fei\ApiClient\Transport\SyncTransportInterface;
@@ -25,7 +25,7 @@ class AuditEventTest extends Unit
         $this->faker = \Faker\Factory::create('fr_FR');
     }
 
-    public function testLoggerCanCommit()
+    public function testAuditCanCommit()
     {
         $audit = new Audit();
 
@@ -38,7 +38,7 @@ class AuditEventTest extends Unit
         $audit->commit();
     }
 
-    public function testLoggerCanDelay()
+    public function testAuditCanDelay()
     {
         $audit = new Audit();
 
@@ -46,7 +46,7 @@ class AuditEventTest extends Unit
         $this->assertAttributeEquals(true, 'isDelayed', $audit);
     }
 
-    public function testLoggerCanNotify()
+    public function testAuditCanNotify()
     {
         $audit = new Audit();
         $audit->setBaseUrl('http://azeaze.fr/');
@@ -98,11 +98,11 @@ class AuditEventTest extends Unit
 
         $this->assertEquals(19, count($auditEvent->getBackTrace()));
         $this->assertEquals(
-            'Tests\Fei\Service\Logger\Client\LoggerTest->Tests\Fei\Service\Logger\Client\{closure}',
+            'Tests\Fei\Service\Audit\Client\AuditEventTest->Tests\Fei\Service\Audit\Client\{closure}',
             $auditEvent->getBackTrace()[0]['method']
         );
         $this->assertEquals(
-            'Instance of Tests\Fei\Service\Logger\Client\LoggerTest',
+            'Instance of Tests\Fei\Service\Audit\Client\AuditEventTest',
             $auditEvent->getBackTrace()[2]['args'][0]
         );
     }
