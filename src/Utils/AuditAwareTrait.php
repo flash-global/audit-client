@@ -13,7 +13,7 @@ use Fei\Service\Audit\Client\Audit;
 /**
  * AuditAwareTrait
  */
-class AuditAwareTrait
+trait AuditAwareTrait
 {
     /**
      * @var Audit
