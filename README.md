@@ -1,11 +1,11 @@
-# Logger Client
+# Audit Client
 
 ## Installation
 
 Just add the following requirement to your `composer.json` file:
 
 ```
-    "fei/logger-client": "^1.2.0"
+    "fei/audit-client": "^1.2.0"
 ```
 
 ## Configuration
@@ -18,7 +18,6 @@ The audit event client needs some options to work properly. The available option
 | OPTION_BASEURL   | This is the server to which send the requests.                             | string | Any URL, including protocol but excluding path | --                      |
 | OPTION_FILTER    | Minimum notification level required for notifications to be actually sent. | int    | Any AuditEvent::LVL_* constant               | AuditEvent::LVL_ERROR |
 | OPTION_BACKTRACE | Should backtrace be added to notifications before they are sent.           | bool   | true / false                                   | true                    |
-| OPTION_LOGFILE   | File path and name where the Logger will store its own exceptions.         | string | Any writeable file  path                       | /tmp/logger.log         |
 
 Notes:
 *Audit is an alias of Fei\Service\AuditEvent\Client\Audit*
@@ -28,12 +27,12 @@ Notes:
 
 ### Initialization
 
-A Logger client should always be initialized by a dependency injection component, since it requires at least one dependency, which is the transport. Moreover, the BASEURL parameter should also depends on environment.
+An Audit client should always be initialized by a dependency injection component, since it requires at least one dependency, which is the transport. Moreover, the BASEURL parameter should also depends on environment.
 
 ```php
 // sample configuration for production environment
 $audit = new Audit(array(
-                            Audit::OPTION_BASEURL  => 'http://logger.flash-global.net',
+                            Audit::OPTION_BASEURL  => 'http://audit.flash-global.net',
                             Audit::OPTION_FILTER   => AuditEvent::LVL_DEBUG,
                           )
                     );
@@ -52,11 +51,11 @@ $audit->setAsyncTransport($asyncTransport);
 
 ### Pushing a simple notification
 
-Once you have set up the Audit, you can start pushing notifications by calling the `notify()` method on the Logger:
+Once you have set up the Audit, you can start pushing notifications by calling the `notify()` method on the Audit:
 
 ```php
 
-$audit = $container->get('logger');
+$audit = $container->get('audit.client');
 
 $audit->notify('AuditEvent message'); // default level is AuditEvent::LVL_INFO
 $audit->notify('Debug message', array('level' => AuditEvent::LVL_DEBUG));
@@ -70,7 +69,7 @@ The more reliable way to push a notification is to instantiate it by yourself, a
 
 ```php
 
-$audit = $container->get('logger');
+$audit = $container->get('audit.client');
 
 $auditEvent = new AuditEvent(array('message' => 'AuditEvent message'));
 $auditEvent

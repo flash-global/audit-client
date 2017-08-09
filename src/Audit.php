@@ -5,6 +5,8 @@ namespace Fei\Service\Audit\Client;
 use Fei\ApiClient\AbstractApiClient;
 use Fei\ApiClient\ApiRequestOption;
 use Fei\ApiClient\RequestDescriptor;
+use Fei\Service\Audit\Client\Builder\SearchBuilder;
+use Fei\Service\Audit\Client\Exception\AuditException;
 use Fei\Service\Audit\Entity\AuditEvent;
 use Fei\Service\Audit\Validator\AuditEventValidator;
 
@@ -99,6 +101,42 @@ class Audit extends AbstractApiClient implements AuditInterface
         }
 
         return false;
+    }
+
+    /**
+     * Retrive audit events
+     *
+     * @param array|SearchBuilder $criteria
+     *
+     * @return bool|\Fei\ApiClient\ResponseDescriptor
+     */
+    public function retrieve($criteria)
+    {
+        if ($criteria instanceof SearchBuilder) {
+            $criteria = $criteria->getParams();
+        }
+
+        if (!is_array($criteria)) {
+            throw new AuditException('$criteria has to be of type array of SearchBuilder');
+        }
+
+        try {
+            $this->registerErrorHandler();
+
+            $request = new RequestDescriptor();
+
+            $request->setUrl($this->buildUrl('/api/audit-events?criteria=' . urlencode(json_encode($criteria))));
+            $request->setMethod('GET');
+
+            $return = $this->send($request, ApiRequestOption::NO_RESPONSE);
+
+            $this->restoreErrorHandler();
+
+            return $return;
+        } catch (\Exception $e) {
+            $this->writeToExceptionLogFile($e->getMessage());
+            $this->restoreErrorHandler();
+        }
     }
 
     /**
