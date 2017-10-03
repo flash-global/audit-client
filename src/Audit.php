@@ -192,7 +192,7 @@ class Audit extends AbstractApiClient implements AuditInterface
         $params += array('reported_at' => new \DateTime());
         $params += array('server' => $this->getServerName());
 
-        $data += $params;
+        $data = array_merge($data, $params);
 
         $auditEvent->hydrate($data);
 
