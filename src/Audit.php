@@ -78,7 +78,10 @@ class Audit extends AbstractApiClient implements AuditInterface
                 );
             }
 
-            $serialized = @json_encode($auditEvent->toArray());
+            $arrayData = $auditEvent->toArray();
+            $arrayData = $this->formatContexts($arrayData);
+
+            $serialized = @json_encode($arrayData);
             if (is_null($serialized)) {
                 $this->restoreErrorHandler();
                 return false;
@@ -174,6 +177,20 @@ class Audit extends AbstractApiClient implements AuditInterface
         $this->filterLevel = $filterLevel;
 
         return $this;
+    }
+
+    protected function formatContexts($auditEventData)
+    {
+        $contexts = $auditEventData['context'];
+        if (count($contexts)) {
+            $formatedContext = [];
+            foreach ($contexts as $context) {
+                $formatedContext[$context['key']] = $context['value'];
+            }
+            $auditEventData['context'] = $formatedContext;
+        }
+
+        return $auditEventData;
     }
 
     /**
