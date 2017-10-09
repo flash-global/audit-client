@@ -615,9 +615,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/flash-global/api-client/zipball/45a4d5ec9124f0317a2a38fbecb12760b2f3b2fe",
+                "url": "https://composer.flash-global.net/dist/fei-api-client-45a4d5ec9124f0317a2a38fbecb12760b2f3b2fe-zip-5b5640.zip",
                 "reference": "45a4d5ec9124f0317a2a38fbecb12760b2f3b2fe",
-                "shasum": ""
+                "shasum": "cfc37d381c9dcba66cfd62547e547ce5c8c4ceaa"
             },
             "require": {
                 "fei/entities": "1.*",
@@ -657,6 +657,12 @@
                 "url": "https://composer.flash-global.net/dist/fei-audit-common-0c02b70da03826750eadb038b93a1c7fe303fd05-zip-ffed0c.zip",
                 "reference": "0c02b70da03826750eadb038b93a1c7fe303fd05",
                 "shasum": "d1807905a6b98dedff91c9eb2b1be571b49bb3a3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.flash-global.net/dist/fei-audit-common-58f514c22dbb2a818e461e0d1084a3402faab155-zip-ac9c81.zip",
+                "reference": "58f514c22dbb2a818e461e0d1084a3402faab155",
+                "shasum": "f262959588172f23ca2d02013dcdfff63ee1b92c"
             },
             "require": {
                 "doctrine/orm": ">=2.5",
@@ -699,9 +705,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/flash-global/entities/zipball/bf2aa1ae8c0c49cb6989c58c721a45e8692a52ab",
+                "url": "https://composer.flash-global.net/dist/fei-entities-bf2aa1ae8c0c49cb6989c58c721a45e8692a52ab-zip-acd356.zip",
                 "reference": "bf2aa1ae8c0c49cb6989c58c721a45e8692a52ab",
-                "shasum": ""
+                "shasum": "67bf0a2ab69dfdb61a376b8ced88c87ed7f47e03"
             },
             "require-dev": {
                 "codeception/codeception": "^2.2",
