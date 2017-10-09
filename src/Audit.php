@@ -78,7 +78,10 @@ class Audit extends AbstractApiClient implements AuditInterface
                 );
             }
 
-            $serialized = @json_encode($auditEvent->toArray());
+            $arrayData = $auditEvent->toArray();
+            $arrayData = $this->formatContexts($arrayData);
+
+            $serialized = @json_encode($arrayData);
             if (is_null($serialized)) {
                 $this->restoreErrorHandler();
                 return false;
@@ -176,6 +179,20 @@ class Audit extends AbstractApiClient implements AuditInterface
         return $this;
     }
 
+    protected function formatContexts($auditEventData)
+    {
+        $contexts = $auditEventData['context'];
+        if (count($contexts)) {
+            $formatedContext = [];
+            foreach ($contexts as $context) {
+                $formatedContext[$context['key']] = $context['value'];
+            }
+            $auditEventData['context'] = $formatedContext;
+        }
+
+        return $auditEventData;
+    }
+
     /**
      * @param AuditEvent $auditEvent
      * @param array        $params
@@ -192,7 +209,7 @@ class Audit extends AbstractApiClient implements AuditInterface
         $params += array('reported_at' => new \DateTime());
         $params += array('server' => $this->getServerName());
 
-        $data += $params;
+        $data = array_merge($data, $params);
 
         $auditEvent->hydrate($data);
 
