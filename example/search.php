@@ -7,7 +7,7 @@ require __DIR__ . '/../vendor/autoload.php';
 
 $start_time = microtime(true);
 
-$audit = new Audit([Audit::OPTION_BASEURL =>'http://127.0.0.1:8092']);
+$audit = new Audit([Audit::OPTION_BASEURL =>'http://127.0.0.1:8084']);
 $audit->setTransport(new Fei\ApiClient\Transport\BasicTransport());
 
 $builder = new SearchBuilder();
