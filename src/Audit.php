@@ -90,7 +90,7 @@ class Audit extends AbstractApiClient implements AuditInterface
             $request = new RequestDescriptor();
             $request->addBodyParam('auditEvent', $serialized);
 
-            $request->setUrl($this->buildUrl('/api/audit-events'));
+            $request->setUrl($this->buildUrl('/api/audit-events?version=2.0'));
             $request->setMethod('POST');
 
             $return = $this->send($request, ApiRequestOption::NO_RESPONSE);
