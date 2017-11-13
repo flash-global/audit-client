@@ -110,11 +110,10 @@ class Audit extends AbstractApiClient implements AuditInterface
      * Retrive audit events
      *
      * @param array|SearchBuilder $criteria
-     * @param integer $limit
      *
      * @return bool|\Fei\ApiClient\ResponseDescriptor
      */
-    public function retrieve($criteria, $limit = 50)
+    public function retrieve($criteria)
     {
         if ($criteria instanceof SearchBuilder) {
             $criteria = $criteria->getParams();
@@ -129,7 +128,7 @@ class Audit extends AbstractApiClient implements AuditInterface
 
             $request = new RequestDescriptor();
 
-            $request->setUrl($this->buildUrl('/api/audit-events?criteria=' . urlencode(json_encode($criteria)) . '&per_page=' . $limit));
+            $request->setUrl($this->buildUrl('/api/audit-events?criteria=' . urlencode(json_encode($criteria))));
             $request->setMethod('GET');
 
             $return = $this->send($request, ApiRequestOption::NO_RESPONSE);
