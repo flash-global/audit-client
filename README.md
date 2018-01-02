@@ -1,55 +1,62 @@
-# Audit Client
+# Service Audit - Client
 
-## Installation
-
-Just add the following requirement to your `composer.json` file:
-
-```
-    "fei/audit-client": "^1.2.0"
-```
-
-## Configuration
-
-The audit event client needs some options to work properly. The available options that can be passed to the `__construct()` or `setOptions()` methods are :
+[![GitHub release](https://img.shields.io/github/release/flash-global/audit-client.svg?style=for-the-badge)](README.md) 
 
 
-| Option           | Description                                                                | Type   | Possible Values                                | Default                 |
-|------------------|----------------------------------------------------------------------------|--------|------------------------------------------------|-------------------------|
-| OPTION_BASEURL   | This is the server to which send the requests.                             | string | Any URL, including protocol but excluding path | --                      |
-| OPTION_FILTER    | Minimum notification level required for notifications to be actually sent. | int    | Any AuditEvent::LVL_* constant               | AuditEvent::LVL_ERROR |
-| OPTION_BACKTRACE | Should backtrace be added to notifications before they are sent.           | bool   | true / false                                   | true                    |
+## Table of contents
+- [Purpose](#purpose)
+- [Requirements](#requirements)
+    - [Runtime](#runtime)
+- [Step by step installation](#step-by-step-installation)
+    - [Initialization](#initialization)
+    - [Settings](#settings)
+    - [Known issues](#known-issues)
+- [Link to documentation](#link-to-documentation)
+    - [Examples](#examples)
+- [Contribution](#contribution)
 
-Notes:
-*Audit is an alias of Fei\Service\AuditEvent\Client\Audit*
-*AuditEvent is an alias of Fei\Service\Audit\Entity\AuditEvent*
+## Purpose
+This client permit to use the `Audit Api`. Thanks to it, you could request the API to :
+* Fetch data
+* Create data
 
-## Usage
+easily
+
+## Requirements 
+
+### Runtime
+- PHP 5.5
+
+## Step by step Installation
+> for all purposes (development, contribution and production)
 
 ### Initialization
+- Add the following requirement to your `composer.json` file:
+```"fei/audit-client": "^1.2.0"```
+- Run Composer depedencies installation
+```composer install```
 
-An Audit client should always be initialized by a dependency injection component, since it requires at least one dependency, which is the transport. Moreover, the BASEURL parameter should also depends on environment.
+### Settings
+
+Don't forget to set the right `baseUrl` in files located in examples.
 
 ```php
-// sample configuration for production environment
-$audit = new Audit(array(
-                            Audit::OPTION_BASEURL  => 'http://audit.flash-global.net',
-                            Audit::OPTION_FILTER   => AuditEvent::LVL_DEBUG,
-                          )
-                    );
-// inject transport classes
-$audit->setTransport(new BasicTransport());
-
-// optionnal asynchronous transport, that will be automatically used to push notifications
-//
-// NOTE this transport requires a beanstalk queue able to listen to its requests
-$pheanstalk = new Pheanstalk('localhost');
-$asyncTransport = new BeanstalkProxyTransport;
-$asyncTransport->setPheanstalk($pheanstalk);
-$audit->setAsyncTransport($asyncTransport);
+<?php 
+$audit = new Audit([Audit::OPTION_BASEURL =>'http://127.0.0.1:8084']);
+$audit->setTransport(new Fei\ApiClient\Transport\BasicTransport());
 ```
 
+### Known issues
+No known issue at this time.
 
-### Pushing a simple notification
+## Link to documentation 
+
+### Examples
+You can test this client easily thanks to the folder [examples](examples)
+
+Here, an example on how to use example : `php /my/audit-client/examples/search.php` 
+
+#### Pushing a simple notification
 
 Once you have set up the Audit, you can start pushing notifications by calling the `notify()` method on the Audit:
 
@@ -63,7 +70,7 @@ $audit->notify('Debug message', array('level' => AuditEvent::LVL_DEBUG));
 
 While its possible to pass more than just the level using the second (array) parameter, it is recommended not to do so. If you want to pass more informations, like a context, please take a look at the following section.
 
-### Pushing a AuditEvent instance
+#### Pushing a AuditEvent instance
 
 The more reliable way to push a notification is to instantiate it by yourself, and then send it through `notify()`, that will also accept AuditEvent instances:
 
@@ -80,4 +87,8 @@ $auditEvent
 $audit->notify($auditEvent);
 
 ```
+
+## Contribution
+As FEI Service, designed and made by OpCoding. The contribution workflow will involve both technical teams. Feel free to contribute, to improve features and apply patches, but keep in mind to carefully deal with pull request. Merging must be the product of complete discussions between Flash and OpCoding teams :) 
+
 
