@@ -14,7 +14,7 @@
         }
     ],
     "require": {
-        "fei/api-client": "^1.1.0",
+        "fei/api-client": "^1.2",
         "fei/audit-common": "^1.0.1"
     },
     "require-dev": {
