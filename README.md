@@ -1,4 +1,5 @@
 # Audit Client
+[![GitHub license](https://img.shields.io/github/license/flash-global/audit-client.svg)](https://github.com/flash-global/audit-client)![continuousphp](https://img.shields.io/continuousphp/git-hub/flash-global/audit-client.svg)[![GitHub issues](https://img.shields.io/github/issues/flash-global/audit-client.svg)](https://github.com/flash-global/audit-client/issues)
 
 ## Installation
 
