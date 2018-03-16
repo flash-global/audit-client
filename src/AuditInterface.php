@@ -2,7 +2,6 @@
 
 namespace Fei\Service\Audit\Client;
 
-
 interface AuditInterface
 {
     /**
@@ -12,5 +11,4 @@ interface AuditInterface
      * @return mixed|bool
      */
     public function notify($message, array $params);
-
 }
