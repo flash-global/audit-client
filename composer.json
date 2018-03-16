@@ -16,6 +16,7 @@
     }
   ],
   "require": {
+    "php" : "^7.0",
     "fei/api-client": "^1.1.0",
     "fei/audit-common": "^1.0.1"
   },
