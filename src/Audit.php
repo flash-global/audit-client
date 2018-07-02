@@ -36,7 +36,7 @@ class Audit extends AbstractApiClient implements AuditInterface
     /**
      * @var bool
      */
-    protected $enabled = false;
+    protected $enabled = true;
 
     /**
      * @var mixed
