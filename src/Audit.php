@@ -52,11 +52,11 @@ class Audit extends AbstractApiClient implements AuditInterface
     public function notify($message, array $params = array())
     {
         try {
-            $this->registerErrorHandler();
-
             if (!$this->getEnabled()) {
                 return true;
             }
+            
+	    $this->registerErrorHandler();
 
             if (is_string($message)) {
                 $auditEvent = new AuditEvent();
