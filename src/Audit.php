@@ -56,7 +56,7 @@ class Audit extends AbstractApiClient implements AuditInterface
                 return true;
             }
             
-	    $this->registerErrorHandler();
+            $this->registerErrorHandler();
 
             if (is_string($message)) {
                 $auditEvent = new AuditEvent();
