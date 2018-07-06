@@ -7,8 +7,7 @@ use Fei\Service\Audit\Client\Audit;
 
 $start_time = microtime(true);
 
-//$audit = new Logger([Logger::OPTION_BASEURL =>'http://logger.test.flash-global.net']);
-$audit = new Audit([Audit::OPTION_BASEURL =>'http://127.0.0.1:8084']);
+$audit = new Audit([Audit::OPTION_BASEURL =>'http://127.0.0.1:8084', Audit::OPTION_ENABLED => true]);
 $audit->setTransport(new Fei\ApiClient\Transport\BasicTransport());
 
 $auditEvent = new AuditEvent();
