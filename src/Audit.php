@@ -16,6 +16,7 @@ class Audit extends AbstractApiClient implements AuditInterface
     const OPTION_FILTER = 'filterLevel';
     const OPTION_BACKTRACE = 'includeBacktrace';
     const OPTION_LOGFILE = 'exceptionLogFile';
+    const OPTION_ENABLED = 'enabled';
 
     /**
      * @var int
@@ -33,6 +34,11 @@ class Audit extends AbstractApiClient implements AuditInterface
     protected $includeBacktrace = true;
 
     /**
+     * @var bool
+     */
+    protected $enabled = true;
+
+    /**
      * @var mixed
      */
     protected $previousErrorHandler;
@@ -46,6 +52,10 @@ class Audit extends AbstractApiClient implements AuditInterface
     public function notify($message, array $params = array())
     {
         try {
+            if (!$this->getEnabled()) {
+                return true;
+            }
+            
             $this->registerErrorHandler();
 
             if (is_string($message)) {
@@ -178,6 +188,27 @@ class Audit extends AbstractApiClient implements AuditInterface
 
         return $this;
     }
+
+    /**
+     * @return bool
+     */
+    public function getEnabled()
+    {
+        return $this->enabled;
+    }
+
+    /**
+     * @param bool $enabled
+     *
+     * @return $this
+     */
+    public function setEnabled($enabled)
+    {
+        $this->enabled = $enabled;
+
+        return $this;
+    }
+
 
     protected function formatContexts($auditEventData)
     {
